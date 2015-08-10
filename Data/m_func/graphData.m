@@ -20,7 +20,16 @@ function graphData(data, label, color, marker, axis_name, graph_name)
         end
         ylim([0, 1]);        
         grid on;
+<<<<<<< HEAD
+<<<<<<< HEAD
+        axis('square');
+        
+=======
  
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
+=======
+ 
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
         legend(label, 4);
         BY = get(gca,'YTick');
         BX = get(gca,'XTick'); 
@@ -55,18 +64,42 @@ function graphData(data, label, color, marker, axis_name, graph_name)
                 
                 if max_val > 1
                     t = num2str(roundn(y-100,-2),4);
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    if y > 10 
+                        t = num2str(roundn(y-100,-2),4);
+                    end;
+=======
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
+=======
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
                     if YDATA(2,j) ~= 100
                         t = [t '%'];
                     else
                         t = '100%';
                     end
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    text(x,y+30,t,'Color',color{i},'FontSize',12,'HorizontalAlignment','center','Rotation',90)
+                    text(x,-5,label{i},'Color',color{i},'FontSize',14,'HorizontalAlignment','right','Rotation',60)
+                else
+                    t = num2str(roundn(y,-2),4);  
+                    text(x,y+0.2,t,'Color',color{i},'FontSize',12,'HorizontalAlignment','center','Rotation',90)
+                    text(x,-0.05,label{i},'Color',color{i},'FontSize',14,'HorizontalAlignment','right','Rotation',60) 
+=======
+=======
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
                     text(x,y+20,t,'Color',color{i},'FontSize',10,'HorizontalAlignment','center','Rotation',90)
                     text(x,-5,label{i},'Color',color{i},'FontSize',12,'HorizontalAlignment','right','Rotation',60)
                 else
                     t = num2str(roundn(y,-2),4);  
                     text(x,y+0.1,t,'Color',color{i},'FontSize',10,'HorizontalAlignment','center','Rotation',90)
                     text(x,-0.05,label{i},'Color',color{i},'FontSize',12,'HorizontalAlignment','right','Rotation',60) 
+<<<<<<< HEAD
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
+=======
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
                 end
             end
         end

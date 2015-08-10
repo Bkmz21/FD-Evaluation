@@ -17,7 +17,24 @@ function [data, label, color, marker, data_label] = readData(path, alg, msz, sf,
             if ~isempty(strfind(alg{alg_type}{3}, 'FDLIB'))
                 file_id = ['20_1.05_' int2str(4 + -2 * knn)]; 
             end 
+<<<<<<< HEAD
+<<<<<<< HEAD
+            
+            %%%%%       threshold = 4 + minNeighbors      %%%%%
+            %
+            %if ~isempty(strfind(alg{alg_type}{3}, 'MVJ'))
+            %    file_id = [int2str(msz) '_' sf '_' int2str(knn+2)]; 
+            %end            
+            %if ~isempty(strfind(alg{alg_type}{3}, 'PICO'))
+            %     file_id = [int2str(msz) '_' sf '_' int2str(knn+2)]; 
+            %end           
+            
+=======
         
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
+=======
+        
+>>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
             fid = fopen([path alg{alg_type}{2} 'test_' file_id '_' alg{alg_type}{3} '.txt'], 'r');
             if fid ~= -1
                 data{alg_id, i} = parseFile(fid, alg{alg_type}{3});
