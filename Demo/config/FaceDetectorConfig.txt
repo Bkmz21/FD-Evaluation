@@ -1,0 +1,193 @@
+general:
+{
+	source:
+	{
+		type = "cam"; //cam, ip_cam, file, image, benchmark
+
+		//input_file = "P2L_S1_C1.1.avi";
+		//ground_truth_data = "";
+
+		//benchmark_name = "FDDB";
+		//benchmark_path = "fddb/";
+		//input_file = "fddb/FDDB-folds/FDDB-fold-01.txt";
+		//ground_truth_data = "fddb/FDDB-folds/FDDB-fold-01-ellipseList.txt";
+		
+		//benchmark_name = "AFW";
+		//benchmark_path = "AFW/";
+		//input_file = "AFW/AFW-fold.txt";
+		//ground_truth_data = "AFW/AFW-annot.txt";
+
+		//benchmark_name = "IJB";
+		//benchmark_path = "IJB-A/IJB-A_images/";
+		//input_file = "IJB-A/IJB-A_detection_sets/image/img_list_01.txt";
+		//ground_truth_data = "IJB-A/IJB-A_detection_sets/image/test_01.csv";
+
+		mask = "jpg";		
+
+		frame_size = [1280, 720];
+		start_farame = 0;
+		max_frame = 0;
+		//resize_frame = true;
+
+		//add_border = 50;	//for image only
+
+		use_Blur = false;
+		use_BGS = false;
+
+		use_Tracker = false;
+		max_distance = 60;
+		max_skipped_frames = 0;
+		min_detected_frames = 0;
+
+		ground_truth = true;
+
+		save_result = false;
+		save_stat = false;
+		output_file = "test_.txt";
+
+		show = true;
+		disp_step = 30;
+		sleep = 1;
+		pause = true;
+
+		//annotate = true;
+	}
+
+	detectors:
+	{
+		//use_CNN = true;
+		use_VJ = true;
+		//use_SURF = true;
+		//use_PICO = true;
+		//use_FDLIB = true;
+		//use_HH = true;
+		//use_AFLW = true;
+		//use_MTP = true;
+		//use_FacePP = true;
+		//use_FDPL = true;
+		//use_MVJ = true;
+
+		min_obj_size = [40, 40];
+		max_obj_size = [0, 0];
+		min_obj = 0.;
+		max_obj = 0.;
+
+		scale_factor = 1.2;
+		min_neighbors = 2;
+
+		num_threads = 1;
+
+		ocvOptimized = true;
+		ocvOCL = false;
+		ocvIPP = true;
+		ocvThreads = true;
+	}
+}
+
+CNN_param:
+{
+	pipeline = "CPU"; //CPU, GPU, GPU_CPU
+
+	advanced:
+	{
+		//check_detect = 0;			//0 - no, 1 - yes, 2 - async 
+		//type_check_detect = 2;		//0 - default, 1 - weak, 2 - normal, 3 - accuracy, 4 - high_accuracy
+		//fast_check = true;
+		//packet_detection = true;
+
+		//equalize = false;
+		//reflection = false;
+		//type_check = 2;			//0, 1, 2
+		//treshold_1 = 1.7;
+		//treshold_2 = 1.7;
+		//adapt_min_neighbors = false;
+		//double_check = false;
+		//drop_detect = false;
+		//min_num_detect = 2;		
+
+		//device_info = true;
+		//cuda_device_id = 0;
+		//cl_platform_id = -1;
+		//cl_device_id = -1;
+
+		//blur = true;
+		//img_resize = 1;			//0 - NearestNeighbor, 1 - Bilinear
+		//uniform_noise = true;	
+		//merger_detect = false;
+	}	
+}
+
+VJ_param:
+{
+	pipeline = "CPU"; //CPU, GPU
+
+	//cascade = "../haarcascade/haarcascade_frontalface_default.xml";
+	cascade = "../haarcascade/haarcascade_frontalface_alt.xml";
+	//cascade = "../haarcascade/haarcascade_frontalface_alt2.xml";
+	//cascade = "../haarcascade/haarcascade_frontalface_alt_tree.xml";
+	//cascade = "../haarcascade/lbpcascade_frontalface.xml";
+	//cascade = "../haarcascade/cuda_haarcascade_frontalface_default.xml";
+	//cascade = "../haarcascade/cuda_haarcascade_frontalface_alt.xml";
+	//cascade = "../haarcascade/cuda_haarcascade_frontalface_alt2.xml";
+	//cascade = "../haarcascade/cuda_haarcascade_frontalface_alt_tree.xml";
+	//cascade = "../haarcascade/old_haarcascade_frontalface_default.xml";
+	//cascade = "../haarcascade/old_haarcascade_frontalface_alt.xml";
+	//cascade = "../haarcascade/old_haarcascade_frontalface_alt2.xml";
+
+	//cascade = "../haarcascade/koestinger_cascade_aflw_lbp.xml";
+	//cascade = "../haarcascade/minhtri_frontalface.xml";
+
+	//step = 0;
+	//flag = 2;
+
+	//obj_size_correction = 0.75;	//for AFLW only
+}
+
+SURF_param:
+{
+	//model_type = 0;	
+	//step = 1;
+	//fast = true;
+	//obj_size_correction = 0.75;
+}
+
+PICO_param:
+{
+	//step = 0.;
+}
+
+HH_param:
+{
+	//config_file = "../test_monocular_objects_detection_lib.config.ini";
+	config_file = "../eccv2014_face_detection_fefdw_HeadHunter.config.ini";
+}
+
+FDPL_param:
+{
+	//model_type = 1;	
+}
+
+MVJ_param:
+{
+	//model_type = 1;	
+}
+
+
+/*
+*	Copyright (c) 2015, Ilya Kalinowski
+*	All rights reserved.
+*
+*	This is an implementation of the algorithm described in the following paper:
+*		I.A. Kalinowski, V.G. Spitsyn,
+*		Compact Convolutional Neural Network Cascade for Face Detection,
+*		http://arxiv.org/abs/1508.01292.
+*
+*	Redistribution and use of this program as source code or in binary form, with or without modifications, are permitted provided that the following conditions are met:
+*		1. Redistributions may not be sold, nor may they be used in a commercial product or activity without prior permission from the copyright holder (contact him at kua_21@mail.ru).
+*		2. Redistributions may not be used for military purposes.
+*		3. Any published work which utilizes this program shall include the reference to the paper available at http://arxiv.org/abs/1508.01292
+*		4. Redistributions must retain the above copyright notice and the reference to the algorithm on which the implementation is based on, this list of conditions and the following disclaimer.
+*
+*	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+*	IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
