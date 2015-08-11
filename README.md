@@ -16,7 +16,7 @@ Demo video:
 
 - [4K Ultra HD](https://www.youtube.com/watch?v=Ad6GxIR8EpU)
 - [Full HD](https://www.youtube.com/watch?v=xE8sG0gyAkc)
-- [HD](https://www.youtube.com/watch?v=xVNRXH4n-ks)
+- [HD](https://www.youtube.com/watch?v=xVNRXH4n-ks) or [HD with Ground truth](https://cloud.mail.ru/public/GyYo/wtPUGvnzL)
 
 
 ## Contact
