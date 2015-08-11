@@ -243,7 +243,7 @@ struct GroundTruth
 };
 map<int, GroundTruth*> frame_ground_truth;
 
-struct StatRate
+struct Stat
 {
 	int frame_count = 0;
 	int face_count = 0;
@@ -260,17 +260,17 @@ struct StatRate
 	map<int, int> tracks;
 	map<int, int> label_tracks;
 };
-StatRate stat_rate_CNN;
-StatRate stat_rate_VJ;
-StatRate stat_rate_SURF;
-StatRate stat_rate_PICO;
-StatRate stat_rate_FDLIB;
-StatRate stat_rate_HH;
-StatRate stat_rate_AFLW;
-StatRate stat_rate_MTP;
-StatRate stat_rate_FacePP;
-StatRate stat_rate_FDPL;
-StatRate stat_rate_MVJ;
+Stat stat_CNN;
+Stat stat_VJ;
+Stat stat_SURF;
+Stat stat_PICO;
+Stat stat_FDLIB;
+Stat stat_HH;
+Stat stat_AFLW;
+Stat stat_MTP;
+Stat stat_FacePP;
+Stat stat_FDPL;
+Stat stat_MVJ;
 
 //--------------------------------------------------------------------------------------------------------
 //FD Benchmarks
@@ -699,7 +699,7 @@ bool rectMatching(cv::Rect &annot, cv::Rect &det)
 	}
 	return false;
 }
-void evaluationDetections(string detector, int frame_id, vector<cv::Rect> &faces, double time, StatRate &stat_rate, CTracker *tracker = 0)
+void evaluationDetections(string detector, int frame_id, vector<cv::Rect> &faces, double time, Stat &stat, CTracker *tracker = 0)
 {
 	int annot_count = 0;
 	int max_track_id = 0;
@@ -727,10 +727,10 @@ void evaluationDetections(string detector, int frame_id, vector<cv::Rect> &faces
 					{
 						true_detections++;
 						fgt->person[annot_id].check = true;
-						if (!stat_rate.label_tracks.count(fgt->person[annot_id].trackID))
+						if (!stat.label_tracks.count(fgt->person[annot_id].trackID))
 						{
-							stat_rate.label_tracks_fount++;
-							stat_rate.label_tracks[fgt->person[annot_id].trackID] = 1;
+							stat.label_tracks_fount++;
+							stat.label_tracks[fgt->person[annot_id].trackID] = 1;
 						}
 						break;
 					}
@@ -756,10 +756,10 @@ void evaluationDetections(string detector, int frame_id, vector<cv::Rect> &faces
 					{
 						if (rectMatching(fgt->person[annot_id].rect, tracker->tracks[det_id]->bounding_box))
 						{
-							if (!stat_rate.tracks.count(tracker->tracks[det_id]->track_id))
+							if (!stat.tracks.count(tracker->tracks[det_id]->track_id))
 							{
 								true_tracks++;
-								stat_rate.tracks[tracker->tracks[det_id]->track_id] = 1;
+								stat.tracks[tracker->tracks[det_id]->track_id] = 1;
 							}
 							fgt->person[annot_id].check = true;
 							break;
@@ -767,10 +767,10 @@ void evaluationDetections(string detector, int frame_id, vector<cv::Rect> &faces
 					}
 				}
 
-				if (!stat_rate.tracks.count(tracker->tracks[det_id]->track_id))
+				if (!stat.tracks.count(tracker->tracks[det_id]->track_id))
 				{
 					false_tracks++;
-					stat_rate.tracks[tracker->tracks[det_id]->track_id] = 1;
+					stat.tracks[tracker->tracks[det_id]->track_id] = 1;
 				}
 			}
 
@@ -788,34 +788,34 @@ void evaluationDetections(string detector, int frame_id, vector<cv::Rect> &faces
 			{
 				if (!tracker->tracks[det_id]->detect || tracker->tracks[det_id]->detected_frames <= min_detected_frames) continue;
 
-				if (!stat_rate.tracks.count(tracker->tracks[det_id]->track_id))
+				if (!stat.tracks.count(tracker->tracks[det_id]->track_id))
 				{
 					false_tracks++;
-					stat_rate.tracks[tracker->tracks[det_id]->track_id] = 1;
+					stat.tracks[tracker->tracks[det_id]->track_id] = 1;
 				}
 			}
 		}
 	}
 
-	stat_rate.frame_count++;
-	stat_rate.face_count += annot_count;
-	stat_rate.track_count = MAX(max_track_id, stat_rate.track_count);
-	stat_rate.true_detections += true_detections;
-	stat_rate.false_detections += false_detections;
-	stat_rate.true_tracks += true_tracks;
-	stat_rate.false_tracks += false_tracks;
-	stat_rate.time_avr = (stat_rate.time_avr * float(stat_rate.frame_count - 1) + time) / float(stat_rate.frame_count);
-	stat_rate.time_min = MIN(stat_rate.time_min, time);
-	stat_rate.time_max = MAX(stat_rate.time_max, time);
+	stat.frame_count++;
+	stat.face_count += annot_count;
+	stat.track_count = MAX(max_track_id, stat.track_count);
+	stat.true_detections += true_detections;
+	stat.false_detections += false_detections;
+	stat.true_tracks += true_tracks;
+	stat.false_tracks += false_tracks;
+	stat.time_avr = (stat.time_avr * float(stat.frame_count - 1) + time) / float(stat.frame_count);
+	stat.time_min = MIN(stat.time_min, time);
+	stat.time_max = MAX(stat.time_max, time);
 	if (disp_step > 0 && frame_id % disp_step == 0)
 	{
 		printf("%s:\n", detector.c_str());
 		printf("	faces = %d\n", annot_count);
 		printf("	true_detect = %d\n", true_detections);
 		printf("	false_detect = %d\n", false_detections);
-		printf("	total_faces = %d\n", stat_rate.face_count);
-		printf("	total_true_detect = %d\n", stat_rate.true_detections);
-		printf("	total_false_detect = %d\n\n", stat_rate.false_detections);
+		printf("	total_faces = %d\n", stat.face_count);
+		printf("	total_true_detect = %d\n", stat.true_detections);
+		printf("	total_false_detect = %d\n\n", stat.false_detections);
 	}
 }
 
@@ -868,23 +868,23 @@ void createLogFile(string log_name, string cfg_mame)
 		file_cfg.close();
 	}
 }
-void saveFaceStat(string clip_name, StatRate &stat_rate, string file_name)
+void saveFaceStat(string clip_name, Stat &stat, string file_name)
 {
 	ofstream file_out;
 	file_out.open(file_name.c_str(), ios_base::app);
 
 	file_out << clip_name << "	"
-		<< stat_rate.frame_count << "	"
-		<< stat_rate.face_count << "	"
-		<< stat_rate.track_count << "	"
-		<< stat_rate.true_detections << "	"
-		<< stat_rate.false_detections << "	"
-		<< stat_rate.true_tracks << "	"
-		<< stat_rate.false_tracks << "	"
-		<< stat_rate.label_tracks_fount << "	"
-		<< stat_rate.time_avr << "	"
-		<< stat_rate.time_min << "	"
-		<< stat_rate.time_max << "\n";
+		<< stat.frame_count << "	"
+		<< stat.face_count << "	"
+		<< stat.track_count << "	"
+		<< stat.true_detections << "	"
+		<< stat.false_detections << "	"
+		<< stat.true_tracks << "	"
+		<< stat.false_tracks << "	"
+		<< stat.label_tracks_fount << "	"
+		<< stat.time_avr << "	"
+		<< stat.time_min << "	"
+		<< stat.time_max << "\n";
 
 	file_out.close();
 }
@@ -994,7 +994,7 @@ void writeDetections(string output_file, string input_file, string img, int fram
 	}
 	out_detect_list.close();
 }
-void save(string dtype, StatRate &stat, string input_file, string output_file, string config_file)
+void save(string dtype, Stat &stat, string input_file, string output_file, string config_file)
 {
 	string log_name = output_file;
 	log_name.insert(log_name.size() - 4, dtype);
@@ -2316,8 +2316,8 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			CNNGPUD->Detect(cnn_faces, image);
 
 			double time_ = timer.get(1000);
-			stat_rate_CNN.time_all += time_;
-			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_CNN.time_all * 1000.;
+			stat_CNN.time_all += time_;
+			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_CNN.time_all * 1000.;
 
 #ifdef PROFILE_DETECTOR
 			//			CNNGPUD->stat.print();
@@ -2348,7 +2348,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (source.ground_truth)
 			{
-				evaluationDetections("CNN", frame_index, cnn_faces_ocv, time_, stat_rate_CNN, tracker);
+				evaluationDetections("CNN", frame_index, cnn_faces_ocv, time_, stat_CNN, tracker);
 			}
 
 			if (source.type == "benchmark" && source.save_stat)
@@ -2411,20 +2411,20 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (detectors.use_AFLW)
 			{
-				stat_rate_AFLW.time_all += time_;
-				fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_AFLW.time_all * 1000.;
+				stat_AFLW.time_all += time_;
+				fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_AFLW.time_all * 1000.;
 			}
 			else
 			{
 				if (detectors.use_MTP)
 				{
-					stat_rate_MTP.time_all += time_;
-					fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_MTP.time_all * 1000.;
+					stat_MTP.time_all += time_;
+					fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_MTP.time_all * 1000.;
 				}
 				else
 				{
-					stat_rate_VJ.time_all += time_;
-					fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_VJ.time_all * 1000.;
+					stat_VJ.time_all += time_;
+					fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_VJ.time_all * 1000.;
 				}
 			}
 
@@ -2490,13 +2490,13 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			if (source.ground_truth)
 			{
 				if (detectors.use_AFLW)
-					evaluationDetections(dtype, frame_index, vj_faces, time_, stat_rate_AFLW, tracker);
+					evaluationDetections(dtype, frame_index, vj_faces, time_, stat_AFLW, tracker);
 				else
 				{
 					if (detectors.use_MTP)
-						evaluationDetections(dtype, frame_index, vj_faces, time_, stat_rate_MTP, tracker);
+						evaluationDetections(dtype, frame_index, vj_faces, time_, stat_MTP, tracker);
 					else
-						evaluationDetections(dtype, frame_index, vj_faces, time_, stat_rate_VJ, tracker);
+						evaluationDetections(dtype, frame_index, vj_faces, time_, stat_VJ, tracker);
 				}
 			}
 
@@ -2527,8 +2527,8 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			int n = SURFD->detect(&pGrayImg, (CvMVRect*)surf_faces.data());
 
 			double time_ = timer.get(1000);
-			stat_rate_SURF.time_all += time_;
-			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_SURF.time_all * 1000.;
+			stat_SURF.time_all += time_;
+			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_SURF.time_all * 1000.;
 
 			surf_faces.resize(n);
 
@@ -2558,7 +2558,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (source.ground_truth)
 			{
-				evaluationDetections("SURF", frame_index, surf_faces_ocv, time_, stat_rate_SURF, tracker);
+				evaluationDetections("SURF", frame_index, surf_faces_ocv, time_, stat_SURF, tracker);
 			}
 
 			if (source.type == "benchmark" && source.save_stat)
@@ -2583,8 +2583,8 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			process_image(pico_faces, &M_gray, detectors.scale_factor, detectors.min_neighbors, PICO_step, detectors.min_obj_size, detectors.max_obj_size);
 
 			double time_ = timer.get(1000);
-			stat_rate_PICO.time_all += time_;
-			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_PICO.time_all * 1000.;
+			stat_PICO.time_all += time_;
+			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_PICO.time_all * 1000.;
 
 			if (source.use_BGS)
 			{
@@ -2608,7 +2608,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (source.ground_truth)
 			{
-				evaluationDetections("PICO", frame_index, pico_faces, time_, stat_rate_PICO, tracker);
+				evaluationDetections("PICO", frame_index, pico_faces, time_, stat_PICO, tracker);
 			}
 
 			if (source.type == "benchmark" && source.save_stat)
@@ -2639,8 +2639,8 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			delete[] graydata;
 
 			double time_ = timer.get(1000);
-			stat_rate_FDLIB.time_all += time_;
-			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_FDLIB.time_all * 1000.;
+			stat_FDLIB.time_all += time_;
+			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_FDLIB.time_all * 1000.;
 
 			int n = fdlib_getndetections();
 			for (int i = 0; i < n; i++)
@@ -2672,7 +2672,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (source.ground_truth)
 			{
-				evaluationDetections("FDLIB", frame_index, fdlib_faces, time_, stat_rate_FDLIB, tracker);
+				evaluationDetections("FDLIB", frame_index, fdlib_faces, time_, stat_FDLIB, tracker);
 			}
 
 			if (source.type == "benchmark" && source.save_stat)
@@ -2700,8 +2700,8 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			detections = objects_detection::get_detections();
 
 			double time_ = timer.get(1000);
-			stat_rate_HH.time_all += time_;
-			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_HH.time_all * 1000.;
+			stat_HH.time_all += time_;
+			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_HH.time_all * 1000.;
 
 			for (int t = 0; t < detections.size(); ++t)
 			{
@@ -2740,7 +2740,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (source.ground_truth)
 			{
-				evaluationDetections("HH", frame_index, hh_faces, time_, stat_rate_HH, tracker);
+				evaluationDetections("HH", frame_index, hh_faces, time_, stat_HH, tracker);
 			}
 
 			if (source.type == "benchmark" && source.save_stat)
@@ -2762,8 +2762,8 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			matlab.evalFacePP(facePP_faces, time_, M_gray);
 			time_ *= 1000.0;
 
-			stat_rate_FacePP.time_all += time_;
-			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_FacePP.time_all * 1000.;
+			stat_FacePP.time_all += time_;
+			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_FacePP.time_all * 1000.;
 
 			rectExtension(facePP_faces);
 
@@ -2789,7 +2789,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (source.ground_truth)
 			{
-				evaluationDetections("Face++", frame_index, facePP_faces, time_, stat_rate_FacePP, tracker);
+				evaluationDetections("Face++", frame_index, facePP_faces, time_, stat_FacePP, tracker);
 			}
 
 			if (source.type == "benchmark" && source.save_stat)
@@ -2809,8 +2809,8 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			matlab.evalFDPL(FDPL_faces, time_, M_gray, FDPL_model_type);
 			time_ *= 1000.0;
 
-			stat_rate_FDPL.time_all += time_;
-			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_FDPL.time_all * 1000.;
+			stat_FDPL.time_all += time_;
+			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_FDPL.time_all * 1000.;
 
 			if (source.use_BGS)
 			{
@@ -2834,7 +2834,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (source.ground_truth)
 			{
-				evaluationDetections("FDPL", frame_index, FDPL_faces, time_, stat_rate_FDPL, tracker);
+				evaluationDetections("FDPL", frame_index, FDPL_faces, time_, stat_FDPL, tracker);
 			}
 
 			if (source.type == "benchmark" && source.save_stat)
@@ -2854,8 +2854,8 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			matlab.evalMVJ(MVJ_faces, time_, M_gray, MVJ_model_type, detectors.scale_factor, detectors.min_neighbors, detectors.min_obj_size, detectors.max_obj_size);
 			time_ *= 1000.0;
 
-			stat_rate_MVJ.time_all += time_;
-			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_rate_MVJ.time_all * 1000.;
+			stat_MVJ.time_all += time_;
+			double fps_ = (double)(frame_index - source.start_farame - 25 * (int)source.use_BGS) / stat_MVJ.time_all * 1000.;
 
 			if (source.use_BGS)
 			{
@@ -2879,7 +2879,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 
 			if (source.ground_truth)
 			{
-				evaluationDetections("MVJ", frame_index, MVJ_faces, time_, stat_rate_MVJ, tracker);
+				evaluationDetections("MVJ", frame_index, MVJ_faces, time_, stat_MVJ, tracker);
 			}
 
 			if (source.type == "benchmark" && source.save_stat)
@@ -2947,15 +2947,15 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 			}
 		}
 
-		//static int false_detect = stat_rate_PICO.false_detections;
+		//static int false_detect = stat_PICO.false_detections;
 		if (source.show)
 		{
 			cv::imshow("Face Detection", M_draw);
 			waitKey(source.sleep);
 
-			//if (false_detect != stat_rate_PICO.false_detections)
+			//if (false_detect != stat_PICO.false_detections)
 			//{
-			//	false_detect = stat_rate_PICO.false_detections;
+			//	false_detect = stat_PICO.false_detections;
 			//	waitKey(0);
 			//}
 		}
@@ -3024,7 +3024,7 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 	{
 		if (detectors.use_CNN)
 		{
-			save("CNN", stat_rate_CNN, source.input_file, source.output_file, config_file);
+			save("CNN", stat_CNN, source.input_file, source.output_file, config_file);
 		}
 
 		if (detectors.use_VJ)
@@ -3045,37 +3045,37 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 #endif
 
 			if (detectors.use_AFLW)
-				save(dtype, stat_rate_AFLW, source.input_file, source.output_file, config_file);
+				save(dtype, stat_AFLW, source.input_file, source.output_file, config_file);
 			else
 			{
 				if (detectors.use_MTP)
-					save(dtype, stat_rate_MTP, source.input_file, source.output_file, config_file);
+					save(dtype, stat_MTP, source.input_file, source.output_file, config_file);
 				else
-					save(dtype, stat_rate_VJ, source.input_file, source.output_file, config_file);
+					save(dtype, stat_VJ, source.input_file, source.output_file, config_file);
 			}
 		}
 
 #ifdef SURF	
 		if (detectors.use_SURF)
 		{
-			save("SURF", stat_rate_SURF, source.input_file, source.output_file, config_file);
+			save("SURF", stat_SURF, source.input_file, source.output_file, config_file);
 		}
 #endif
 
 		if (detectors.use_PICO)
 		{
-			save("PICO", stat_rate_PICO, source.input_file, source.output_file, config_file);
+			save("PICO", stat_PICO, source.input_file, source.output_file, config_file);
 		}
 
 		if (detectors.use_FDLIB)
 		{
-			save("FDLIB", stat_rate_FDLIB, source.input_file, source.output_file, config_file);
+			save("FDLIB", stat_FDLIB, source.input_file, source.output_file, config_file);
 		}
 
 #ifdef USE_HH
 		if (detectors.use_HH)
 		{
-			save("HH", stat_rate_HH, source.input_file, source.output_file, config_file);
+			save("HH", stat_HH, source.input_file, source.output_file, config_file);
 			objects_detection::free_object_detector();
 		}
 #endif
@@ -3083,17 +3083,17 @@ int FaceDetectorDemo(string config_file, string input_file = "", string output_f
 #ifdef MATLAB
 		if (detectors.use_FacePP)
 		{
-			save("Face++", stat_rate_FacePP, source.input_file, source.output_file, config_file);
+			save("Face++", stat_FacePP, source.input_file, source.output_file, config_file);
 		}
 
 		if (detectors.use_FDPL)
 		{
-			save("FDPL", stat_rate_FDPL, source.input_file, source.output_file, config_file);
+			save("FDPL", stat_FDPL, source.input_file, source.output_file, config_file);
 		}
 
 		if (detectors.use_MVJ)
 		{
-			save("MVJ", stat_rate_MVJ, source.input_file, source.output_file, config_file);
+			save("MVJ", stat_MVJ, source.input_file, source.output_file, config_file);
 		}
 #endif
 	}
