@@ -5,33 +5,6 @@ addpath('m_func');
 video = 0;
 
 if video
-    'video benchmark'
-    alg{1}             = { '-FastCNN-weak', 'CNN/type_1/', 'CNN', [1, 0, 0], '+' };
-    alg{size(alg,2)+1} = { '-FastCNN-strong', 'CNN/type_3/', 'CNN', [1, 0, 0], '*' };
-    alg{size(alg,2)+1} = { 'FastCNN-default', 'CNN/type_2/', 'CNN', [1, 0, 0], 'o' };
-    alg{size(alg,2)+1} = { 'OpenCV-lbp', 'VJ/type_3/', 'VJ', [0, 0, 1], 'x' };
-    alg{size(alg,2)+1} = { 'OpenCV-alt', 'VJ/type_2/', 'VJ', [0, 0, 1], '+' };
-    alg{size(alg,2)+1} = { 'OpenCV-default', 'VJ/type_1/', 'VJ', [0, 0, 1], 'o' };
-    alg{size(alg,2)+1} = { 'SURF-32', 'SURF/type_2/', 'SURF', [0, 1, 0], '+' };
-    alg{size(alg,2)+1} = { 'SURF-24', 'SURF/type_1/', 'SURF', [0, 1, 0], 'o' };
-    alg{size(alg,2)+1} = { 'PICO', 'PICO/type_1/', 'PICO', [0.8, 0.6, 0.4], 'o' };
-    alg{size(alg,2)+1} = { 'OpenCV-Pham', 'MTP/type_1/', 'MTP', [1 0.8 0], 'o' };
-    alg{size(alg,2)+1} = { 'OpenCV-Koestinger', 'AFLW/type_1/', 'AFLW', [0 0.8 1], 'o' };
-
-    benchmark{1} = { 'CAM', 'CAM_TEST/', [80], [] };
-    benchmark{2} = { 'CANTEEN', 'CANTEEN_TEST/', [80 160], [] };
-    benchmark{3} = { 'HIMYM', 'HIMYM_TEST/', [40 80], [] };
-<<<<<<< HEAD
-<<<<<<< HEAD
-    benchmark{4} = { 'CP', 'CP_TEST/', [40 80], [1 12; 13 24; 25 51; 52 78] };
-=======
-    benchmark{4} = { 'CP', 'CP_TEST/', [40 80], [1 12; 13 24; 25 51; 52 78] }; %[1 12; 13 24; 25 51; 52 78]
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-    benchmark{4} = { 'CP', 'CP_TEST/', [40 80], [1 12; 13 24; 25 51; 52 78] }; %[1 12; 13 24; 25 51; 52 78]
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-
-    agg_data = @sum;
 else
     'image benchmark';
     alg{1}             = { 'OpenCV-default', 'VJ/type1/', 'VJ', [0, 0, 1], 'o' };
@@ -41,37 +14,16 @@ else
     alg{size(alg,2)+1} = { 'OpenCV-lbp', 'VJ/type4/', 'VJ', [0, 0, 1], 'x' };
     alg{size(alg,2)+1} = { 'Matlab-CART', 'MVJ/type1/', 'MVJ', [0.5, 0, 0.5], 'o' };
     alg{size(alg,2)+1} = { 'Matlab-LBP', 'MVJ/type2/', 'MVJ', [0.5, 0, 0.5], '+' };
-<<<<<<< HEAD
-<<<<<<< HEAD
     alg{size(alg,2)+1} = { 'SURF-24', 'SURF/type1/', 'SURF', [0, 1, 0], 'o' };
     alg{size(alg,2)+1} = { 'SURF-32', 'SURF/type2/', 'SURF', [0, 1, 0], '+' };
     alg{size(alg,2)+1} = { 'PICO', 'PICO/type1/', 'PICO', [0.8, 0.6, 0.4], 'o' };
     alg{size(alg,2)+1} = { 'OpenCV-Koestinger', 'AFLW/type1/', 'AFLW', [0 0.8 1], 'o' };
-=======
-=======
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-    alg{size(alg,2)+1} = { 'SURF-24', 'SURF_correct/type1/', 'SURF', [0, 1, 0], 'o' };
-    alg{size(alg,2)+1} = { 'SURF-32', 'SURF_correct/type2/', 'SURF', [0, 1, 0], '+' };
-    alg{size(alg,2)+1} = { 'PICO', 'PICO/type1/', 'PICO', [0.8, 0.6, 0.4], 'o' };
-    alg{size(alg,2)+1} = { 'OpenCV-Koestinger', 'AFLW_correct/type1/', 'AFLW', [0 0.8 1], 'o' };
-<<<<<<< HEAD
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
     alg{size(alg,2)+1} = { 'OpenCV-Pham', 'MTP/type1/', 'MTP', [1 0.8 0], 'o' };
     alg{size(alg,2)+1} = { 'FDPL-small', 'FDPL/type1/', 'FDPL', [0, 0.5, 0.5], 'o' };
     alg{size(alg,2)+1} = { 'FDPL-large', 'FDPL/type2/', 'FDPL', [0, 0.5, 0.5], '+' };
     alg{size(alg,2)+1} = { 'FDLIB', 'FDLIB/type1/', 'FDLIB', [0.75, 0.75, 0.5], 'o' };
     alg{size(alg,2)+1} = { 'CompactCNN (our)', 'CNN/type2/', 'CNN', [1, 0, 0], 'o' };
-<<<<<<< HEAD
-<<<<<<< HEAD
     alg{size(alg,2)+1} = { '-CompactCNN-weak (our)', 'CNN/type1/', 'CNN', [1, 0, 0], '+' };
-=======
-    alg{size(alg,2)+1} = { 'CompactCNN-weak (our)', 'CNN/type1/', 'CNN', [1, 0, 0], '+' };
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-    alg{size(alg,2)+1} = { 'CompactCNN-weak (our)', 'CNN/type1/', 'CNN', [1, 0, 0], '+' };
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
 
     benchmark{1} = { 'FDDB', 'FDDB_TEST/', [20 40 80], [] };
     benchmark{2} = { 'AFW', 'AFW_TEST/', [20 40 80], [] };
@@ -80,15 +32,7 @@ else
 end
 
 knn = [1 2 3];
-<<<<<<< HEAD
-<<<<<<< HEAD
 F_alpha = -1;
-=======
-F1_alpha = -1;
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-F1_alpha = -1;
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
 agg_score = @mean; %@median
 
 %% Evaluation
@@ -114,18 +58,8 @@ for test_id = 1:size(benchmark, 2)
         
         subdata_idx = benchmark{test_id}{4};
         if isempty(subdata_idx)
-<<<<<<< HEAD
-<<<<<<< HEAD
             [true, false, recall, precision, F_score] = calcMetrics(data, F_alpha, agg_data);
             score(size(score, 1)+1, :) = F_score;
-=======
-            [true, false, recall, precision, F1] = calcMetrics(data, F1_alpha, agg_data);
-            score(size(score, 1)+1, :) = F1;
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-            [true, false, recall, precision, F1] = calcMetrics(data, F1_alpha, agg_data);
-            score(size(score, 1)+1, :) = F1;
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
             test_label{size(test_label, 2)+1} = [benchmark{test_id}{1} '-' int2str(msz)];
         else
             for subdata_id = 1:size(subdata_idx, 1)
@@ -140,18 +74,8 @@ for test_id = 1:size(benchmark, 2)
                     end
                 end
                 
-<<<<<<< HEAD
-<<<<<<< HEAD
                 [true, false, recall, precision, F_score] = calcMetrics(subdata, F_alpha, agg_data);
                 score(size(score, 1)+1, :) = F_score;
-=======
-                [true, false, recall, precision, F1] = calcMetrics(subdata, F1_alpha, agg_data);
-                score(size(score, 1)+1, :) = F1;
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-                [true, false, recall, precision, F1] = calcMetrics(subdata, F1_alpha, agg_data);
-                score(size(score, 1)+1, :) = F1;
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
                 test_label{size(test_label, 2)+1} = [benchmark{test_id}{1} '-' int2str(msz) ', set' int2str(subdata_id)];
             end  
         end      
@@ -197,16 +121,6 @@ for alg_id = 1:size(score, 2)
     mean_diff(alg_id) = agg_score(diff);
 end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-%mean_diff = [91.3 12.5 11.1 11.3 18 40.7 11.1 39.8 69.2 39.1 73.6 16.8 47.5 0.15 0.2 27];
-
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-%mean_diff = [91.3 12.5 11.1 11.3 18 40.7 11.1 39.8 69.2 39.1 73.6 16.8 47.5 0.15 0.2 27];
-
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
 score_table(2:size(test_label,2)+1, 1) = test_label;
 score_table(1, 2:size(label,2)+1) = label;
 comparison_table = score_table;
@@ -221,53 +135,16 @@ comparison_table(size(comparison_table,1)+1, 2:size(mean_diff,2)+1) = num2cell(m
 comparison_table(size(comparison_table,1),1) = {'mean'};
 comparison_table = comparison_table'
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 figure('OuterPosition', [0 0 1000 600]);
-=======
-figure('OuterPosition', [0 0 1000 800]);
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-figure('OuterPosition', [0 0 1000 800]);
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
 ord_score(:,1) = num2cell(mean_score);
 ord_score(:,2) = color;
 ord_score(:,3) = label;
 ord_score = sortcell(ord_score)';
-<<<<<<< HEAD
-<<<<<<< HEAD
 graphData(cell2num(ord_score(1,:)), ord_score(3,:), ord_score(2,:), marker, [], 'F-score');
 
 figure('OuterPosition', [0 0 1000 600]);
-=======
-graphData(cell2num(ord_score(1,:)), ord_score(3,:), ord_score(2,:), marker, [], 'score');
-
-figure('OuterPosition', [0 0 1000 800]);
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-graphData(cell2num(ord_score(1,:)), ord_score(3,:), ord_score(2,:), marker, [], 'score');
-
-figure('OuterPosition', [0 0 1000 800]);
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
 ord_diff(:,1) = num2cell(mean_diff + 100);
 ord_diff(:,2) = color;
 ord_diff(:,3) = label;
 ord_diff = sortcell(ord_diff)';
-<<<<<<< HEAD
-<<<<<<< HEAD
 graphData(cell2num(ord_diff(1,:)), ord_diff(3,:), ord_diff(2,:), marker, [], 'delta F-score');
-
-=======
-=======
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-graphData(cell2num(ord_diff(1,:)), ord_diff(3,:), ord_diff(2,:), marker, [], 'diff F');
-
-%friedman
-%[p,tbl,stats] = friedman(score,1);
-%multcompare(stats,0.01)
-<<<<<<< HEAD
-%myfriedman(score,1)
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-%myfriedman(score,1)
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079

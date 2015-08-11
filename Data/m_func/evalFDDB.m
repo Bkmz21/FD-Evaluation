@@ -30,15 +30,7 @@ function [data, label, color, marker, data_label] = evalFDDB(alg, msz, sf, knn_s
                 FDDB_fold = ['G:/QA/fddb/FDDB-folds/FDDB-fold-' FDDB_set_id '.txt'];
                 FDDB_annot = ['G:/QA/fddb/FDDB-folds/FDDB-fold-' FDDB_set_id '-ellipseList.txt'];
                 FDDB_det = [alg{alg_type}{2} 'test_' file_id '__' alg{alg_type}{3} '_FDDB_' FDDB_set_id '.txt'];
-<<<<<<< HEAD
-<<<<<<< HEAD
                 system(['fddb_eval.exe ' FDDB_path ' ' FDDB_fold ' ' FDDB_det ' ' FDDB_annot]);
-=======
-                system(['fddb_eval_mod_0.8.exe ' FDDB_path ' ' FDDB_fold ' ' FDDB_det ' ' FDDB_annot]);
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
-=======
-                system(['fddb_eval_mod_0.8.exe ' FDDB_path ' ' FDDB_fold ' ' FDDB_det ' ' FDDB_annot]);
->>>>>>> 684e4945fb80c5c016a15e87ced26dca18726079
 
                 fid = fopen('tempDiscROC.txt', 'r');
                 val = textscan(fid, '%f', 'delimiter', ' ');
