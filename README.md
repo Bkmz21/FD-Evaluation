@@ -36,7 +36,7 @@ The precision detection can be increased by combination detectors.
   </tr>
   <tr align=center>
 	<td>1</td>
-    <td>Viola–Jones*</td>
+    <td>Viola–Jones<sup>1</sup></td>
     <td>18679</td> 
     <td>3587</td>
 	<td>46.7%</td>
@@ -72,7 +72,7 @@ The precision detection can be increased by combination detectors.
   </tr>
   <tr align=center>
 	<td>4</td>
-    <td>Hybrid** (1&nbsp;&&nbsp;2)</td>
+    <td>Hybrid<sup>2</sup> (1&nbsp;&&nbsp;2)</td>
     <td>16684</td> 
     <td>93</td>
 	<td>41.7%</td>
@@ -83,8 +83,8 @@ The precision detection can be increased by combination detectors.
 	<td><a href="https://cloud.mail.ru/public/hcTv/eSaXavD1F">HD</a></td>
   </tr>
 </table>
-*OpenCV 3.0.0 <a href="https://github.com/Itseez/opencv/tree/master/data/haarcascades_cuda">haarcascade frontalface alt for cuda</a><br>
-**without code optimization<br><br>
+<sup>1</sup>OpenCV 3.0.0 <a href="https://github.com/Itseez/opencv/tree/master/data/haarcascades_cuda">haarcascade frontalface alt for cuda</a><br>
+<sup>2</sup>without code optimization<br><br>
 Running on GPU Nvidia GeForce GT 640M<br>
 CPU Intel Core i7-3610QM (2.3GHz, without Turbo Boost)<br>
 Search settings: minSize – 40×40, scaleFactor – 1.2, minNeighbors – 2, without tracking<br>
