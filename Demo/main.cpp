@@ -183,7 +183,7 @@
 #endif
 
 //Background subtraction
-#include "BGS.cpp"
+#include "bgs.cpp"
 
 //Kalman object tracking
 #include "Tracker/CTracker.h"

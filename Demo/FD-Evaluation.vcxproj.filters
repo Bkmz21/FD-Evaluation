@@ -39,9 +39,6 @@
     <ClCompile Include="ext\tracker\HungarianAlg\HungarianAlg.cpp">
       <Filter>Source Files\Other\Tracker</Filter>
     </ClCompile>
-    <ClCompile Include="ext\other\BGS.cpp">
-      <Filter>Source Files\Other</Filter>
-    </ClCompile>
     <ClCompile Include="ext\other\converter.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
@@ -52,6 +49,9 @@
       <Filter>Source Files\Other</Filter>
     </ClCompile>
     <ClCompile Include="ext\other\work_dir.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ext\other\bgs.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
   </ItemGroup>

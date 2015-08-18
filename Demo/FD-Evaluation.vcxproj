@@ -155,7 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ext\other\BGS.cpp" />
+    <ClCompile Include="ext\other\bgs.cpp" />
     <ClCompile Include="ext\other\converter.cpp" />
     <ClCompile Include="ext\other\matlabWarper.cpp" />
     <ClCompile Include="ext\other\hr_timer.cpp" />
