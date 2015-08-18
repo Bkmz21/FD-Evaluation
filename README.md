@@ -72,7 +72,7 @@ The precision detection can be increased by combination detectors.
   </tr>
   <tr align=center>
 	<td>4</td>
-    <td>Hybrid<sup>2</sup> (1&nbsp;&&nbsp;2)</td>
+    <td>Hybrid<sup>2</sup> (2&nbsp;+&nbsp;1)</td>
     <td>16684</td> 
     <td>93</td>
 	<td>41.7%</td>
