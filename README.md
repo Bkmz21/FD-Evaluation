@@ -44,7 +44,7 @@ The precision detection can be increased by combination detectors.
 	<td>118</td>
 	<td>79</td>
 	<td>136</td>
-	<td><a href="https://cloud.mail.ru/public/GyYo/wtPUGvnzL">HD</a></td>
+	<td><a href="https://cloud.mail.ru/public/JQzF/Udxwfy5BL">HD</a></td>
   </tr>
   <tr align=center>
 	<td>2</td>
@@ -56,7 +56,7 @@ The precision detection can be increased by combination detectors.
 	<td>12</td>
 	<td>10</td>
 	<td>17</td>
-	<td><a href="https://cloud.mail.ru/public/GyYo/wtPUGvnzL">HD</a></td>
+	<td><a href="https://cloud.mail.ru/public/JQzF/Udxwfy5BL">HD</a></td>
   </tr>
   <tr align=center>
 	<td>3</td>
