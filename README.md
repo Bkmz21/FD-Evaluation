@@ -6,8 +6,10 @@
 This is an implementation of the algorithm described in the following paper:
 
 	I.A. Kalinowski, V.G. Spitsyn,
-	Compact Convolutional Neural Network Cascade for Face Detection,
+	Compact Convolutional Neural Network Cascade for Face Detection (in Russian),
 	http://arxiv.org/abs/1508.01292
+
+You can find the short explanation in English [here](https://github.com/Bkmz21/FD-Evaluation/issues/2).
 
 If you use the provided code/binaries or data for your work, please cite this paper. 
 
