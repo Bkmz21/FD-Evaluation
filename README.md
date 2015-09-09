@@ -11,7 +11,7 @@ This is an implementation of the algorithm described in the following paper:
 
 You can find the short explanation in English [here](https://github.com/Bkmz21/FD-Evaluation/issues/2).
 
-This code used only for evaluation of face detectors on FDDB, AFW and IJB-A benchmarks or video data. It does not contain CNN detector.
+This code used only for evaluation of face detectors on FDDB, AFW and IJB-A benchmarks or video data. It does not contain CNN detector. To view the test results it is necessary extract files from rar-archives to the root folder (Data/FDDB_TEST) and run the Matlab script.
 
 If you use the provided code/binaries or data for your work, please cite this paper. 
 
