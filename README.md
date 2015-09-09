@@ -11,6 +11,8 @@ This is an implementation of the algorithm described in the following paper:
 
 You can find the short explanation in English [here](https://github.com/Bkmz21/FD-Evaluation/issues/2).
 
+This code used only for evaluation of face detectors on FDDB, AFW and IJB-A benchmarks or video data. It does not contain CNN detector.
+
 If you use the provided code/binaries or data for your work, please cite this paper. 
 
 ##
