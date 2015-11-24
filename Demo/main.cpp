@@ -1,9 +1,9 @@
 /*
-*	Copyright (c) 2015, Ilya Kalinowski
+*	Copyright (c) 2015, Ilya Kalinovskii
 *	All rights reserved.
 *
 *	This is an implementation of the algorithm described in the following paper:
-*		I.A. Kalinowski, V.G. Spitsyn,
+*		I.A. Kalinovskii, V.G. Spitsyn,
 *		Compact Convolutional Neural Network Cascade for Face Detection,
 *		http://arxiv.org/abs/1508.01292.
 *
