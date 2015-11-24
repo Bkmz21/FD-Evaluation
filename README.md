@@ -96,7 +96,7 @@ Search settings: minSize – 40×40, scaleFactor – 1.2, minNeighbors – 2, wi
 
 For any additional information contact me at <kua_21@mail.ru>.
 
-Copyright (c) 2015, Ilya Kalinowski.
+Copyright (c) 2015, Ilya Kalinovskii.
 All rights reserved.
 
 
